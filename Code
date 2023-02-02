@@ -1,0 +1,38 @@
+def decode(codes, encoded):
+    key_char = {}
+    for element in codes:
+        char, key = element.split("\t")
+        key_char[key] = char
+    str = ''
+    res = []
+    for char in encoded:
+        str += char
+        if str in key_char:
+            if(key_char[str] == "[newline]"):
+                res.append("\n")
+                str = ''
+            else:
+                res.append(key_char[str])
+                str = ''
+    return "".join(res)
+            
+                
+if __name__ == '__main__':
+    
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    codes_count = int(input().strip())
+
+    codes = []
+
+    for _ in range(codes_count):
+        codes_item = input()
+        codes.append(codes_item)
+
+    encoded = input()
+
+    result = decode(codes, encoded)
+
+    fptr.write(result + '\n')
+
+    fptr.close()
